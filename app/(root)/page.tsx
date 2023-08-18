@@ -6,7 +6,7 @@ import React from "react";
 
 async function Home() {
     const res = await fetchPosts(1, 30);
-    // console.log(res.posts);
+
     const user = await currentUser();
     return (
         <>

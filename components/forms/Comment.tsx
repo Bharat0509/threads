@@ -58,13 +58,14 @@ const Comment = ({ currentUserId, currentUserImg, threadId }: CommentProps) => {
                     render={({ field }) => (
                         <FormItem className='flex items-center w-full gap-3'>
                             <FormLabel>
-                                <Image
-                                    src={currentUserImg}
-                                    alt={currentUserId}
-                                    width={48}
-                                    height={48}
-                                    className='rounded-full object-cover'
-                                />
+                                <div className='relative h-8 w-8'>
+                                    <Image
+                                        src={currentUserImg}
+                                        alt={currentUserId}
+                                        fill
+                                        className='cursor-pointer rounded-full object-cover'
+                                    />
+                                </div>
                             </FormLabel>
                             <FormControl className='w-full border-none bg-transparent'>
                                 <Input
