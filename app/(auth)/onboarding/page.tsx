@@ -1,9 +1,12 @@
 import AccountProfile from "@/components/forms/AccountProfile";
+import { fetchUser } from "@/lib/actions/user.action";
 import { currentUser } from "@clerk/nextjs";
-import { userInfo } from "os";
+import { redirect } from "next/navigation";
+
 async function Page() {
     const user = await currentUser();
-    const userInfo = {};
+    if (!user) return redirect("/sign-in");
+    const userInfo = await fetchUser(user.id);
 
     const userData = {
         id: user?.id,
