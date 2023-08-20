@@ -1,8 +1,7 @@
 import PostThread from "@/components/forms/PostThread";
 import { fetchUser } from "@/lib/actions/user.action";
-import { currentUser } from "@clerk/nextjs";
+import { currentUser, useOrganization } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-import React from "react";
 
 async function CreateThread() {
     const user = await currentUser();

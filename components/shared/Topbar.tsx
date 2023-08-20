@@ -1,6 +1,10 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
-import { OrganizationSwitcher, SignOutButton, SignedIn } from "@clerk/nextjs";
+import { SignOutButton, SignedIn } from "@clerk/nextjs";
+import { OrganizationSwitcher } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
+
 function Topbar() {
     return (
         <nav className='topbar'>
@@ -15,8 +19,8 @@ function Topbar() {
                     Threads
                 </p>
             </Link>
-            <div className='flex items-start gap-1'>
-                <div className='block md:hidden'>
+            <div className='flex items-start  gap-1'>
+                <div className='block my-auto md:hidden'>
                     <SignedIn>
                         <SignOutButton>
                             <div className='flex cursor-pointer'>
@@ -30,7 +34,14 @@ function Topbar() {
                         </SignOutButton>
                     </SignedIn>
                 </div>
-                <OrganizationSwitcher />
+                <OrganizationSwitcher
+                    appearance={{
+                        baseTheme: dark,
+                        elements: {
+                            organizationSwitcherTrigger: "py-2 px-4",
+                        },
+                    }}
+                />
             </div>
         </nav>
     );

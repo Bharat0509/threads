@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import Thread from "../models/thread.model";
 import User from "../models/user.model";
 import { connectDB } from "../mongoose";
+import Community from "../models/community.model";
 
 interface Params {
     text: string;
@@ -19,15 +20,24 @@ export async function createThread({
     connectDB();
 
     try {
+        const comminityIdObject = await Community.findOne(
+            { id: communityId },
+            { _id: 1 }
+        );
         const createdThread = await Thread.create({
             text,
             author,
-            community: null,
+            community: comminityIdObject,
         });
 
         await User.findByIdAndUpdate(author, {
             $push: { threads: createdThread._id },
         });
+        if (comminityIdObject) {
+            await Community.findByIdAndUpdate(comminityIdObject, {
+                $push: { threads: createdThread._id },
+            });
+        }
         revalidatePath(path);
     } catch (error: any) {
         throw new Error(error);
